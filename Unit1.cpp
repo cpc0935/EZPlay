@@ -1,0 +1,289 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+#include "fstream.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "WMPLib_OCX"
+#pragma resource "*.dfm"
+TForm1 *Form1;
+float A_point,B_point;
+float C_point;       //stop point
+int G_repeat;        //重播次數
+int G_playedtimes;   //已播次數
+//---------------------------------------------------------------------------
+// 將整數tol秒數轉成hh:mm:ss時分秒格式的字串,如15->"00:00:15" 121->"00:02:01"
+String sec2hms(int tol)
+{
+  String hh,mm,ss;
+  hh=IntToStr(tol%(24*60*60)/(60*60));
+  mm=IntToStr(tol%(24*60*60)%(60*60)/60);
+  ss=IntToStr(tol%(24*60*60)%(60*60)%60);
+  if(hh.Length()<2) hh="0"+hh;
+  if(mm.Length()<2) mm="0"+mm;
+  if(ss.Length()<2) ss="0"+ss;
+  return hh+":"+mm+":"+ss;
+}
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+        : TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::FormKeyDown(TObject *Sender, WORD &Key,
+      TShiftState Shift)
+{
+  if(Key==VK_ESCAPE)
+    Close();
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::BitBtn1Click(TObject *Sender)
+{
+  //選取媒體檔案
+  if (OpenDialog1->Execute())
+   {
+     Label3->Caption=OpenDialog1->FileName;
+     MP1->URL=OpenDialog1->FileName;
+     CleanAll->Execute();
+     ComboBox2->Enabled=true;
+
+     BitBtn2->Enabled=true; //往回播放
+     BitBtn2->Caption="回至前 "+ComboBox2->Items->Strings[ComboBox2->ItemIndex]+" 秒播放";
+
+     BitBtn3->Enabled=true;
+     BitBtn3->Caption="回至前 "+ComboBox2->Items->Strings[ComboBox2->ItemIndex]+" 秒以AB點播放 "+ComboBox1->Items->Strings[ComboBox1->ItemIndex]+" 次";
+     Timer1->Enabled=true;
+     BitBtn8->Enabled=true;
+     exec_play->Execute();
+     //Label11->Caption=MP1->currentMedia->... ; //想得到時間長度,但不知  2018/2/6
+   }
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Timer1Timer(TObject *Sender)
+{
+  /*
+  MP1->playState
+    0:無檔案 1:停止 2:暫停 3:播放 6:正在緩衝 9:正在連接 10:就緒
+  */
+  Application->ProcessMessages();
+  
+  if(MP1->playState==1 || MP1->playState==2 || MP1->playState==3 || MP1->playState==10){
+    Label5->Caption=MP1->currentMedia->durationString;
+    Label4->Caption=MP1->controls->currentPositionString;//進度(時分秒)  //currentPosition Double格式
+
+    if(MP1->playState == 3)
+      BitBtn4->Enabled=true;
+
+    if(A_point>0)
+      Label12->Caption=sec2hms(A_point);
+    else
+      Label12->Caption="---";
+
+    if(B_point>0)
+      Label13->Caption=sec2hms(B_point);
+    else
+      Label13->Caption="---";
+  }
+  else{
+    CleanAll->Execute();
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::FormCreate(TObject *Sender)
+{
+  Caption=Caption+"    (ver:"+FileDateToDateTime(FileAge(ParamStr(0))).FormatString("yyyy_mm_dd")+")";
+  MP1->settings->autoStart=false;
+  CleanAll->Execute();
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::CleanAllExecute(TObject *Sender)
+{
+  ComboBox1->ItemIndex=2; //重播次數
+  ComboBox2->ItemIndex=2; //回播秒數
+  Label4->Caption="";
+  Label5->Caption="";
+  Label12->Caption="";
+  Label13->Caption="";
+  Label8->Caption="";
+  A_point=0;
+  B_point=0;
+  C_point=0;
+  BitBtn4->Enabled=false; //設 A 點
+  BitBtn5->Enabled=false; //設 B 點
+  BitBtn6->Enabled=false; //回自A點播放
+  BitBtn7->Enabled=false; //從A點播放到B點
+  BitBtn7->Caption="從A點播放到B點 "+(String)ComboBox1->Items->Strings[ComboBox1->ItemIndex]+" 次";
+  Timer2->Enabled=false;  //從A點播放到B點
+  Timer3->Enabled=false;  //往回播放
+  G_repeat=StrToInt(ComboBox1->Items->Strings[ComboBox1->ItemIndex]);
+ // BitBtn8->Enabled=false; //暫停播放
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::BitBtn4Click(TObject *Sender)
+{
+  //設 A 點
+  A_point=MP1->controls->currentPosition;
+  B_point=0;
+  BitBtn5->Enabled=true;   //設 B 點
+  BitBtn6->Enabled=true;   //回自A點播放
+  BitBtn7->Enabled=false;  //從A點播放到B點
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::BitBtn5Click(TObject *Sender)
+{
+  //設 B 點
+  if(MP1->controls->currentPosition<=A_point){
+    ShowMessage("! B點時間必須在A點之後 !");
+    return;
+  }
+  B_point=MP1->controls->currentPosition;
+  BitBtn7->Enabled=true;   //從A點播放到B點
+  BitBtn7->Caption="從A點播放到B點 "+(String)ComboBox1->Items->Strings[ComboBox1->ItemIndex]+" 次";
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::BitBtn6Click(TObject *Sender)
+{
+  //回自A點播放
+  if(MP1->playState != 3){    //未播放中
+    exec_play->Execute();
+  }
+
+  MP1->controls->currentPosition=A_point;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::BitBtn7Click(TObject *Sender)
+{
+  //從A點播放到B點
+  G_repeat=StrToInt(ComboBox1->Items->Strings[ComboBox1->ItemIndex]);
+  if(MP1->playState != 3){  //未播放中
+    exec_play->Execute();    
+  }
+
+  MP1->controls->currentPosition=A_point;
+  G_playedtimes=1;
+  Timer2->Enabled=true;
+  Timer3->Enabled=false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Timer2Timer(TObject *Sender)
+{
+  Application->ProcessMessages();
+
+  if(G_playedtimes<=G_repeat){
+    Label8->Caption="正在播放第 "+(String)G_playedtimes+" 次";
+    if(B_point<MP1->controls->currentPosition){ //進度(秒)
+        MP1->controls->currentPosition=A_point;
+        ++G_playedtimes;
+    }
+  }
+  else{
+    exec_pause->Execute();
+    MP1->controls->currentPosition=B_point;
+    Label8->Caption=(String)G_repeat+" 次全部播放完畢";
+    Timer2->Enabled=false;
+  }
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::BitBtn2Click(TObject *Sender)
+{
+  //回前播放
+  C_point=MP1->controls->currentPosition;
+  MP1->controls->currentPosition = MP1->controls->currentPosition - StrToInt(ComboBox2->Items->Strings[ComboBox2->ItemIndex]);
+  exec_play->Execute();
+  Timer3->Enabled=true;
+  Timer2->Enabled=false;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::ComboBox2Change(TObject *Sender)
+{
+  //回播秒數
+  BitBtn2->Caption="往回 "+ComboBox2->Items->Strings[ComboBox2->ItemIndex]+" 秒播放";
+  BitBtn3->Caption="回至前 "+ComboBox2->Items->Strings[ComboBox2->ItemIndex]+" 秒以AB點播放 "+ComboBox1->Items->Strings[ComboBox1->ItemIndex]+" 次";
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::BitBtn3Click(TObject *Sender)
+{
+  //回前以AB點播放
+  B_point=MP1->controls->currentPosition;
+  Label13->Caption=sec2hms(B_point);
+  BitBtn5->Enabled=true;
+  A_point=B_point - StrToInt(ComboBox2->Items->Strings[ComboBox2->ItemIndex]);
+  BitBtn6->Enabled=true;  //回自A點播放
+  BitBtn7->Enabled=true;  //從A點播放到B點
+  Label12->Caption=sec2hms(A_point);
+  BitBtn7->Click();
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::ComboBox1Change(TObject *Sender)
+{
+  BitBtn7->Caption="從A點播放到B點 "+(String)ComboBox1->Items->Strings[ComboBox1->ItemIndex]+" 次";
+  BitBtn3->Caption="回至前 "+ComboBox2->Items->Strings[ComboBox2->ItemIndex]+" 秒以AB點播放 "+ComboBox1->Items->Strings[ComboBox1->ItemIndex]+" 次";
+  G_repeat=StrToInt(ComboBox1->Items->Strings[ComboBox1->ItemIndex]);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Timer3Timer(TObject *Sender)
+{
+  if(MP1->controls->currentPosition>C_point){
+    exec_pause->Execute();
+    Timer3->Enabled=false;
+  }
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::BitBtn8Click(TObject *Sender)
+{
+  //暫停播放
+  if(BitBtn8->Caption=="暫停")
+    exec_pause->Execute();
+  else
+  if(BitBtn8->Caption=="播放")
+    exec_play->Execute();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::exec_pauseExecute(TObject *Sender)
+{
+  MP1->controls->pause();
+  BitBtn8->Caption="播放";
+  BitBtn8->Font->Color=clFuchsia;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::exec_playExecute(TObject *Sender)
+{
+  MP1->controls->play();
+  BitBtn8->Caption="暫停";
+  BitBtn8->Font->Color=(TColor)0x00FF6FFF;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::FormResize(TObject *Sender)
+{
+  MP1->Hide();
+  MP1->Show();
+  try{
+    MP1->SetFocus();
+  }
+  catch(...)
+  {}
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::MP1MouseDown(TObject *Sender, short nButton,
+      short nShiftState, long fX, long fY)
+{
+  if(nButton==1)      //left:1 Middle:4 Right:2
+    BitBtn8->Click();
+}
+//---------------------------------------------------------------------------
+

@@ -1,0 +1,416 @@
+object Form1: TForm1
+  Left = 217
+  Top = 32
+  Width = 731
+  Height = 603
+  Caption = '*** '#31777#26131#22810#23186#39636#25765#25918#22120' ***     '#35373#35336#32773':'#20399#23433#24685'  ( '#29256#27402#25152#26377','#27489#36814#20998#20139' )'
+  Color = 16768714
+  Font.Charset = ANSI_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -19
+  Font.Name = #24494#36575#27491#40657#39636
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  Position = poScreenCenter
+  Scaled = False
+  OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
+  OnResize = FormResize
+  PixelsPerInch = 96
+  TextHeight = 24
+  object Panel1: TPanel
+    Left = 0
+    Top = 428
+    Width = 715
+    Height = 137
+    Align = alBottom
+    Color = 15519647
+    TabOrder = 0
+    DesignSize = (
+      715
+      137)
+    object Label3: TLabel
+      Left = 115
+      Top = 3
+      Width = 599
+      Height = 17
+      Anchors = [akLeft, akTop, akRight]
+      AutoSize = False
+      Caption = 
+        '----------------------------------------------------------------' +
+        '---------'
+      Color = clWhite
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object Label4: TLabel
+      Left = 104
+      Top = 55
+      Width = 70
+      Height = 19
+      AutoSize = False
+      Caption = '---------------'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label5: TLabel
+      Left = 104
+      Top = 29
+      Width = 70
+      Height = 19
+      AutoSize = False
+      Caption = '---------------'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label9: TLabel
+      Left = 8
+      Top = 29
+      Width = 85
+      Height = 19
+      AutoSize = False
+      Caption = #23186#39636#38263#24230'('#31186')'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label10: TLabel
+      Left = 8
+      Top = 55
+      Width = 85
+      Height = 19
+      AutoSize = False
+      Caption = #36914#24230'('#26178#20998#31186')'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label12: TLabel
+      Left = 264
+      Top = 29
+      Width = 70
+      Height = 19
+      AutoSize = False
+      Caption = '---------------'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label13: TLabel
+      Left = 264
+      Top = 55
+      Width = 70
+      Height = 19
+      AutoSize = False
+      Caption = '---------------'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label2: TLabel
+      Left = 560
+      Top = 55
+      Width = 60
+      Height = 19
+      Caption = #37325#25773#27425#25976
+      Font.Charset = ANSI_CHARSET
+      Font.Color = 29440
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label8: TLabel
+      Left = 560
+      Top = 107
+      Width = 120
+      Height = 19
+      Alignment = taCenter
+      Caption = '--------------------'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = 29440
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 560
+      Top = 81
+      Width = 60
+      Height = 19
+      Caption = #22238#25773#31186#25976
+      Font.Charset = ANSI_CHARSET
+      Font.Color = 29440
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+    end
+    object BitBtn1: TBitBtn
+      Left = 6
+      Top = 2
+      Width = 107
+      Height = 22
+      Caption = #36984#21462#23186#39636#27284#26696
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      OnClick = BitBtn1Click
+    end
+    object BitBtn4: TBitBtn
+      Left = 184
+      Top = 26
+      Width = 75
+      Height = 25
+      Caption = #35373'A'#40670
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      OnClick = BitBtn4Click
+    end
+    object BitBtn5: TBitBtn
+      Left = 184
+      Top = 52
+      Width = 75
+      Height = 25
+      Caption = #35373'B'#40670
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 2
+      OnClick = BitBtn5Click
+    end
+    object BitBtn7: TBitBtn
+      Left = 360
+      Top = 52
+      Width = 185
+      Height = 25
+      Caption = #24478'A'#40670#25773#25918#21040'B'#40670
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 3
+      OnClick = BitBtn7Click
+    end
+    object BitBtn6: TBitBtn
+      Left = 424
+      Top = 26
+      Width = 121
+      Height = 25
+      Caption = #22238#33258'A'#40670#25773#25918
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
+      OnClick = BitBtn6Click
+    end
+    object ComboBox1: TComboBox
+      Left = 624
+      Top = 51
+      Width = 60
+      Height = 27
+      Font.Charset = ANSI_CHARSET
+      Font.Color = 29440
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ItemHeight = 19
+      ParentFont = False
+      TabOrder = 5
+      Text = #37325#25773#27425#25976
+      OnChange = ComboBox1Change
+      Items.Strings = (
+        '1'
+        '2'
+        '3'
+        '5'
+        '10'
+        '20'
+        '30')
+    end
+    object BitBtn2: TBitBtn
+      Left = 424
+      Top = 78
+      Width = 121
+      Height = 25
+      Caption = #22238#21069#25773#25918
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = 29440
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 6
+      OnClick = BitBtn2Click
+    end
+    object ComboBox2: TComboBox
+      Left = 624
+      Top = 77
+      Width = 60
+      Height = 27
+      Font.Charset = ANSI_CHARSET
+      Font.Color = 29440
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ItemHeight = 19
+      ParentFont = False
+      TabOrder = 7
+      Text = #37325#25773#27425#25976
+      OnChange = ComboBox2Change
+      Items.Strings = (
+        '3'
+        '5'
+        '7'
+        '10'
+        '15'
+        '20'
+        '30'
+        '40'
+        '50'
+        '60')
+    end
+    object BitBtn3: TBitBtn
+      Left = 280
+      Top = 104
+      Width = 265
+      Height = 25
+      Caption = #22238#21069'?'#31186#20197'AB'#40670#25773#25918
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = 29440
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 8
+      OnClick = BitBtn3Click
+    end
+    object BitBtn8: TBitBtn
+      Left = 584
+      Top = 26
+      Width = 73
+      Height = 25
+      Caption = #26283#20572
+      Enabled = False
+      Font.Charset = ANSI_CHARSET
+      Font.Color = 16740351
+      Font.Height = -15
+      Font.Name = #24494#36575#27491#40657#39636
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 9
+      OnClick = BitBtn8Click
+    end
+  end
+  object MP1: TWindowsMediaPlayer
+    Left = 0
+    Top = 0
+    Width = 715
+    Height = 428
+    Align = alClient
+    TabOrder = 1
+    OnMouseDown = MP1MouseDown
+    ControlData = {
+      000300000800000000000500000000000000F03F030000000000050000000000
+      0000000008000200000000000300010000000B00FFFF0300000000000B00FFFF
+      08000200000000000300320000000B00000008000A000000660075006C006C00
+      00000B0000000B0000000B00FFFF0B00FFFF0B00000008000200000000000800
+      020000000000080002000000000008000200000000000B000000E64900003C2C
+      0000}
+  end
+  object OpenDialog1: TOpenDialog
+    Filter = 
+      'mp3 m4a wav wma wmv '#38899#27138#27284'|*.mp3;*.m4a;*.wav;*.wma;*.wma|avi mov mp' +
+      '4 mpeg wmv '#24433#29255#27284'|*.avi;*.mov;*.mp4;*.mpeg;*.mpg;*.wmv|'#20219#20309#27284#26696'|*.*'
+    Left = 336
+    Top = 120
+  end
+  object Timer1: TTimer
+    Enabled = False
+    Interval = 250
+    OnTimer = Timer1Timer
+    Left = 336
+    Top = 152
+  end
+  object ActionList1: TActionList
+    Left = 336
+    Top = 192
+    object CleanAll: TAction
+      Caption = 'CleanAll'
+      OnExecute = CleanAllExecute
+    end
+    object exec_pause: TAction
+      Caption = 'exec_pause'
+      OnExecute = exec_pauseExecute
+    end
+    object exec_play: TAction
+      Caption = 'exec_play'
+      OnExecute = exec_playExecute
+    end
+  end
+  object Timer2: TTimer
+    Enabled = False
+    Interval = 250
+    OnTimer = Timer2Timer
+    Left = 392
+    Top = 152
+  end
+  object Timer3: TTimer
+    Enabled = False
+    Interval = 250
+    OnTimer = Timer3Timer
+    Left = 440
+    Top = 152
+  end
+end
