@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 32
   Width = 731
   Height = 603
-  Caption = '*** '#31777#26131#22810#23186#39636#25765#25918#22120' ***     '#35373#35336#32773':'#20399#23433#24685'  ( '#29256#27402#25152#26377','#27489#36814#20998#20139' )'
+  Caption = '*** '#31777#26131#22810#23186#39636#25773#25918#22120' ***     '#35373#35336#32773':'#20399#23433#24685'  ( '#29256#27402#25152#26377','#27489#36814#20998#20139' )'
   Color = 16768714
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -51,10 +51,11 @@ object Form1: TForm1
       WordWrap = True
     end
     object Label4: TLabel
-      Left = 104
+      Left = 256
       Top = 55
       Width = 70
       Height = 19
+      Alignment = taRightJustify
       AutoSize = False
       Caption = '---------------'
       Font.Charset = ANSI_CHARSET
@@ -65,7 +66,7 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label5: TLabel
-      Left = 104
+      Left = 96
       Top = 29
       Width = 70
       Height = 19
@@ -93,7 +94,7 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label10: TLabel
-      Left = 8
+      Left = 160
       Top = 55
       Width = 85
       Height = 19
@@ -107,10 +108,11 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label12: TLabel
-      Left = 264
+      Left = 256
       Top = 29
       Width = 70
       Height = 19
+      Alignment = taRightJustify
       AutoSize = False
       Caption = '---------------'
       Font.Charset = ANSI_CHARSET
@@ -121,10 +123,11 @@ object Form1: TForm1
       ParentFont = False
     end
     object Label13: TLabel
-      Left = 264
-      Top = 55
+      Left = 256
+      Top = 79
       Width = 70
       Height = 19
+      Alignment = taRightJustify
       AutoSize = False
       Caption = '---------------'
       Font.Charset = ANSI_CHARSET
@@ -150,15 +153,18 @@ object Form1: TForm1
     object Label8: TLabel
       Left = 560
       Top = 107
-      Width = 120
+      Width = 140
       Height = 19
       Alignment = taCenter
+      AutoSize = False
       Caption = '--------------------'
+      Color = 8454143
       Font.Charset = ANSI_CHARSET
       Font.Color = 29440
       Font.Height = -15
       Font.Name = #24494#36575#27491#40657#39636
-      Font.Style = []
+      Font.Style = [fsBold]
+      ParentColor = False
       ParentFont = False
     end
     object Label7: TLabel
@@ -190,7 +196,7 @@ object Form1: TForm1
       OnClick = BitBtn1Click
     end
     object BitBtn4: TBitBtn
-      Left = 184
+      Left = 176
       Top = 26
       Width = 75
       Height = 25
@@ -206,8 +212,8 @@ object Form1: TForm1
       OnClick = BitBtn4Click
     end
     object BitBtn5: TBitBtn
-      Left = 184
-      Top = 52
+      Left = 176
+      Top = 76
       Width = 75
       Height = 25
       Caption = #35373'B'#40670

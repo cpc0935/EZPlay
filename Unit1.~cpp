@@ -215,6 +215,8 @@ void __fastcall TForm1::BitBtn3Click(TObject *Sender)
   Label13->Caption=sec2hms(B_point);
   BitBtn5->Enabled=true;
   A_point=B_point - StrToInt(ComboBox2->Items->Strings[ComboBox2->ItemIndex]);
+  BitBtn6->Enabled=true;  //回自A點播放
+  BitBtn7->Enabled=true;  //從A點播放到B點
   Label12->Caption=sec2hms(A_point);
   BitBtn7->Click();
 }
